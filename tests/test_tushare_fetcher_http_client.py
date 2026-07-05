@@ -61,11 +61,39 @@ class TestTushareHttpClient(unittest.TestCase):
         self.assertEqual(df.to_dict(orient="records"), [{"ts_code": "600519.SH", "close": 1688.0}])
 
 
+    def test_query_posts_to_custom_endpoint(self) -> None:
+        client = _TushareHttpClient(
+            token="demo-token",
+            timeout=15,
+            api_url="https://tushare.example.com/api",
+        )
+        response = MagicMock(
+            status_code=200,
+            text=json.dumps(
+                {
+                    "code": 0,
+                    "data": {
+                        "fields": ["ts_code", "close"],
+                        "items": [["600519.SH", 1688.0]],
+                    },
+                }
+            ),
+        )
+
+        with patch("data_provider.tushare_fetcher.requests.post", return_value=response) as post_mock:
+            client.daily(ts_code="600519.SH", start_date="20260320", end_date="20260325")
+
+        self.assertEqual(post_mock.call_args.args[0], "https://tushare.example.com/api")
+
+
 class TestTushareFetcherInit(unittest.TestCase):
     """Ensure fetcher initialization no longer depends on the tushare SDK package."""
 
     def test_init_builds_http_client_when_token_present(self) -> None:
-        config = SimpleNamespace(tushare_token="demo-token")
+        config = SimpleNamespace(
+            tushare_token="demo-token",
+            tushare_api_url="http://api.tushare.pro",
+        )
 
         with patch("data_provider.tushare_fetcher.get_config", return_value=config):
             fetcher = TushareFetcher()
@@ -73,6 +101,18 @@ class TestTushareFetcherInit(unittest.TestCase):
         self.assertIsInstance(fetcher._api, _TushareHttpClient)
         self.assertTrue(fetcher.is_available())
         self.assertEqual(fetcher.priority, -1)
+
+    def test_init_forwards_custom_api_url_to_client(self) -> None:
+        config = SimpleNamespace(
+            tushare_token="demo-token",
+            tushare_api_url="https://tushare.example.com/api",
+        )
+
+        with patch("data_provider.tushare_fetcher.get_config", return_value=config):
+            fetcher = TushareFetcher()
+
+        self.assertIsInstance(fetcher._api, _TushareHttpClient)
+        self.assertEqual(fetcher._api._api_url, "https://tushare.example.com/api")
 
 
 if __name__ == "__main__":

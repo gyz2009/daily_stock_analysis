@@ -276,6 +276,14 @@ const settingsHelpZhCN: SettingsHelpMap = {
     impact: ['影响部分 A 股基础数据、股票列表和相关增强数据获取。'],
     notes: ['不要把 token 提交到仓库或公开日志。'],
   },
+  'settings.data_source.TUSHARE_API_URL': {
+    title: 'Tushare API 地址',
+    summary: 'Tushare Pro 数据接口地址，默认 http://api.tushare.pro。',
+    usage: '需要指向自建或第三方兼容端点时才修改；留空则使用官方地址。',
+    valueNotes: ['token 与全部请求都会发往该地址，请自行确认端点可信。'],
+    impact: ['影响所有 Tushare 数据请求的目标服务器；填错会导致 Tushare 数据源不可用。'],
+    notes: ['指向非官方服务器等同于把凭据交给第三方，请谨慎评估。'],
+  },
   'settings.data_source.TICKFLOW_API_KEY': {
     title: 'TickFlow API Key',
     summary: '用于启用 TickFlow A 股日 K、实时行情、股票列表/名称与大盘复盘增强数据。',
@@ -1429,6 +1437,14 @@ const settingsHelpEnUS: SettingsHelpMap = {
     valueNotes: ['Available APIs depend on your Tushare permission level.'],
     impact: ['Affects some A-share base data, stock lists, and enrichment data.'],
     notes: ['Do not commit the token or print it in public logs.'],
+  },
+  'settings.data_source.TUSHARE_API_URL': {
+    title: 'Tushare API URL',
+    summary: 'Tushare Pro API endpoint. Default: http://api.tushare.pro.',
+    usage: 'Change this only to point at a self-hosted or third-party compatible endpoint; leave empty to use the official host.',
+    valueNotes: ['The token and all requests are sent to this address, so make sure the endpoint is trusted.'],
+    impact: ['Affects the target server for every Tushare request; a wrong value makes the Tushare data source unavailable.'],
+    notes: ['Pointing at a non-official server effectively hands your credentials to a third party. Evaluate carefully.'],
   },
   'settings.data_source.TICKFLOW_API_KEY': {
     title: 'TickFlow API Key',

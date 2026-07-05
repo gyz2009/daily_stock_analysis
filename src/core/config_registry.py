@@ -779,6 +779,31 @@ _FIELD_DEFINITIONS: Dict[str, Dict[str, Any]] = {
         ],
         "warning_codes": ["secret_value"],
     },
+    "TUSHARE_API_URL": {
+        "title": "Tushare API URL",
+        "description": "Tushare Pro API endpoint. Default: http://api.tushare.pro. Point to a self-hosted or third-party compatible endpoint only when needed; the token and all requests are sent to this address, so make sure it is trusted.",
+        "category": "data_source",
+        "data_type": "string",
+        "ui_control": "text",
+        "is_sensitive": False,
+        "is_required": False,
+        "is_editable": True,
+        "default_value": "http://api.tushare.pro",
+        "options": [],
+        "validation": {"format": "url"},
+        "display_order": 11,
+        "help_key": "settings.data_source.TUSHARE_API_URL",
+        "examples": [
+            "TUSHARE_API_URL=http://api.tushare.pro",
+        ],
+        "docs": [
+            {
+                "label": "Tushare 股票列表指南",
+                "href": "https://github.com/ZhuLinsen/daily_stock_analysis/blob/main/docs/TUSHARE_STOCK_LIST_GUIDE.md",
+            },
+        ],
+        "warning_codes": [],
+    },
     "TICKFLOW_API_KEY": {
         "title": "TickFlow API Key",
         "description": "API key for optional TickFlow A-share daily K-lines, realtime quotes, stock list/name lookup, and market review enhancement. Permission failures fail open to existing providers.",

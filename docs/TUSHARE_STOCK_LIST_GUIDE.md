@@ -16,6 +16,8 @@ TUSHARE_TOKEN=你的tushare_token
 
 > 获取 Token：访问 [Tushare Pro](https://tushare.pro/weborder/#/login) 注册并获取
 
+> 自定义端点（可选）：默认请求官方地址 `http://api.tushare.pro`。如需指向自建或第三方兼容端点，可额外配置 `TUSHARE_API_URL=你的端点地址`。注意 token 与全部请求会发往该地址，请自行确认其可信；不配置时保持官方地址不变。
+
 ### 2. 运行脚本
 
 ```bash
